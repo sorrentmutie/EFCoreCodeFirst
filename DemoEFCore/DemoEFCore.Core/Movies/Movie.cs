@@ -1,7 +1,8 @@
-﻿namespace DemoEFCore.Movies;
+﻿namespace DemoEFCore.Core.Movies;
 
-public class Movie: Entity<int>
+public class Movie: IEntity<int>
 {
+    public int Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Description {  get; set; } = string.Empty;
     public bool IsReleased { get; set; }

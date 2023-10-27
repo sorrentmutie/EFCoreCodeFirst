@@ -1,8 +1,100 @@
-﻿using DemoEFCore.Movies;
+﻿using DemoEFCore.Core.Movies;
+using DemoEFCore.Core.Movies.Interfaces;
+using DemoEFCore.Data.Movies;
+using DemoEFCore.Infrastructure;
+using DemoEFCore.Infrastructure.Movies;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
-using var database = new MoviesDbContext();
+var moviesDbContext = new MoviesDbContext();
+//IActorData actorsService = new ActorsService(moviesDbContext);
+
+IRepository<Actor, int> actorsRepository
+    = new Repository<Actor, int>(moviesDbContext);
+IRepository<Genre, int> genreRepository
+    = new Repository<Genre, int>(moviesDbContext);
+
+IRepository<Movie, int> movieRepository
+    = new Repository<Movie, int>(moviesDbContext);
+
+var movie = new Movie
+{
+    Title = "Indiana Jones",
+    ReleaseDate = DateTime.Now,
+    IsReleased = true,
+    Comments = new List<Comment>
+    {
+        new Comment { Vote = 10, Text = "Fantastico"},
+        new Comment { Vote = 9, Text = "Bellissimo"},
+    }
+};
+
+await movieRepository.CreateAsync(movie);
+
+
+//var actor = new Actor
+//{
+//    Name = "Paul Newman",
+//    Age = 80,
+//    Salary = 1000000.0
+//};
+
+//await actorsRepository.CreateAsync(actor);
+//await genreRepository.CreateAsync(new Genre { Name = "Commedia" });
+
+//var actor = await actorsRepository.GetByIdAsync(4);
+//Console.WriteLine($"{actor?.Name}");
+//if(actor != null)
+//{
+//    //actor.Name = "Paolo Newman";
+//    //actor.Age = 85;
+//    //await actorsRepository.UpdateAsync(actor);
+//    //await actorsRepository.DeleteAsync(actor.Id);
+//}
+
+//var data = actorsRepository.Get();
+//if(data != null)
+//{
+//    var actors = await data.Where(a => a.Name.StartsWith("Mario")).ToListAsync();
+//    foreach (var actor in actors)
+//    {
+//        Console.WriteLine($"{actor.Name}");
+//    }
+//}
+
+
+
+
+//var actor = new Actor
+//{
+//    Name = "Clint Eastwood",
+//    Age = 90,
+//    Salary = 1000000.0
+//};
+
+//await actorsService.CreateActorAsync(actor);
+//await actorsService.DeleteActorAsync(3);
+
+//var clint = await actorsService.GetActorByIdAsync(2);
+//Console.WriteLine($"{clint?.Name} {clint?.Age}");
+//if (clint != null)
+//{
+//    clint.Name = "Mario Eastwood";
+//    await actorsService.UpdateActorAsync(clint);
+//}
+
+//var actors = await actorsService.GetActorsAsync();
+
+//if(actors != null)
+//{
+//    foreach (var act in actors)
+//    {
+//        Console.WriteLine( $"{act.Name} {act.Age}" );
+//    }
+//}
+
+
+#region EF CORE
+//using var database = new MoviesDbContext();
 
 //database.Genres.Add(new Genre { Name = "Erotico" });
 //await database.SaveChangesAsync();
@@ -102,27 +194,31 @@ using var database = new MoviesDbContext();
 //database.MoviesActors.Add(movieActor);
 //await database.SaveChangesAsync();
 
-var movie = await database.Movies.SingleOrDefaultAsync
-    ( x => x.Id == 1 );
-if(movie != null)
-{
-    var actor = new Actor() { Name = "Rutger TurnHauerer" };
-    database.Actors.Add( actor );
-    await database.SaveChangesAsync();
+//var movie = await database.Movies.SingleOrDefaultAsync
+//    ( x => x.Id == 1 );
+//if(movie != null)
+//{
+//    var actor = new Actor() { Name = "Rutger TurnHauerer" };
+//    database.Actors.Add( actor );
+//    await database.SaveChangesAsync();
 
-    var movieActor =
-        new MovieActor
-        {
-            MovieId = movie.Id,
-            ActorId = actor.Id,
-            Character = "Cattivo",
-            Order = 2
-        };
+//    var movieActor =
+//        new MovieActor
+//        {
+//            MovieId = movie.Id,
+//            ActorId = actor.Id,
+//            Character = "Cattivo",
+//            Order = 2
+//        };
 
-    database.MoviesActors.Add( movieActor );
-    await database.SaveChangesAsync();
-}
-
-
+//    database.MoviesActors.Add( movieActor );
+//    await database.SaveChangesAsync();
+//}
 
 
+//var genres = await database.Genres.ToListAsync();
+//foreach (var genre in genres)
+//{
+//    Console.WriteLine(genre.Name);
+//}
+#endregion

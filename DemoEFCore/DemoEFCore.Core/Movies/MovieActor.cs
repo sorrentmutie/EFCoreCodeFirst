@@ -1,4 +1,4 @@
-﻿namespace DemoEFCore.Movies;
+﻿namespace DemoEFCore.Core.Movies;
 
 public class MovieActor: Entity<int>
 {

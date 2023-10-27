@@ -18,6 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DemoEFCore.Core\DemoEFCore.Core.csproj" />
+    <ProjectReference Include="..\DemoEFCore.Data\DemoEFCore.Data.csproj" />
+    <ProjectReference Include="..\DemoEFCore.Infrastructure\DemoEFCore.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="mymovies.db">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>

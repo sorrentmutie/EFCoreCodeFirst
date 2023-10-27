@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using DemoEFCore.Core.Movies;
+using Microsoft.EntityFrameworkCore;
 
-namespace DemoEFCore.Movies;
+namespace DemoEFCore.Data.Movies;
 
 public class MoviesDbContext: DbContext
 {
@@ -13,8 +15,8 @@ public class MoviesDbContext: DbContext
         (DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=mymovies.db");
-        optionsBuilder.LogTo(Console.WriteLine);
-        optionsBuilder.EnableSensitiveDataLogging();
+        //optionsBuilder.LogTo(Console.WriteLine);
+        //optionsBuilder.EnableSensitiveDataLogging();
     }
 
 
